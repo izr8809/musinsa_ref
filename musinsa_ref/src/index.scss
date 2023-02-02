@@ -1,9 +1,20 @@
-
+$img_size : 100px;
 
 body {
-    background: tomato;
+    background: white;
   
     p {
       color: white;
     }
+}
+
+.Title{
+    font-size: 3vh;
+    font-weight: bold;
+    color : orange
+}
+
+img {
+    width : $img_size;
+    height : $img_size;
 }
