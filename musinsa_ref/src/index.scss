@@ -1,4 +1,4 @@
-$img_size : 100px;
+$img_size : 150px;
 
 body {
     background: white;
@@ -8,10 +8,17 @@ body {
     }
 }
 
-.Title{
+#Title{
+    padding-top: 20px;
     font-size: 3vh;
+    align-items: center;
+    font-family: 'Noto Sans KR', sans-serif;
     font-weight: bold;
-    color : orange
+    display: flex;
+    align-items: center; /* 수직 정렬 */
+    flex-direction: row; /* default: row */
+    justify-content: center; /* flex direction에 대해서 정렬방식 선택 */
+    height : 48px;
 }
 
 img {
