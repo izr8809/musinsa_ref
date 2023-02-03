@@ -11,7 +11,7 @@ const columns = [
     headerName: 'image',
     width: 150,
     editable: true,
-    renderCell: (params) => <img src={`/public/images/${params.row.productcode}.png`} />, // renderCell will render the component
+    renderCell: (params) => <a href= {`https://www.musinsa.com/app/goods/${params.row.productcode}` } target="_blank"><img src={`/public/images/${params.row.productcode}.png`} /></a>, // renderCell will render the component
   },
   { field: 'name', headerName: 'name',sortable: false, width: 300 },
   
@@ -79,9 +79,6 @@ const columns = [
   },
 ];
 
-function setid(r) {
-
-}
 
 
 function App() {
