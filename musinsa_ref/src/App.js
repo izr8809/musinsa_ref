@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import Home from './Home'
 import Box from '@mui/material/Box';
-import { DataGrid } from '@mui/x-data-grid';
+import { DataGrid  } from '@mui/x-data-grid';
 import { gridVisibleSortedRowIdsSelector } from '@mui/x-data-grid';
 
 const columns = [
@@ -11,16 +11,16 @@ const columns = [
     headerName: 'image',
     width: 150,
     editable: true,
+    sortable: false,
     renderCell: (params) => <a href= {`https://www.musinsa.com/app/goods/${params.row.productcode}` } target="_blank"><img src={`/public/images/${params.row.productcode}.png`} /></a>, // renderCell will render the component
   },
-  { field: 'name', headerName: 'name',sortable: false, width: 300 },
+  { field: 'name', headerName: 'name / brand',sortable: false, width: 300 },
   
   {
     field: 'brand',
     headerName: 'brand',
     width: 150,
     sortable: false,
-    editable: true,
   },
   {
     field: 'gender',
@@ -28,7 +28,13 @@ const columns = [
     type: 'number',
     sortable: false,
     width: 100,
-    editable: true,
+  },
+  {
+    field: 'view',
+    headerName: 'view',
+    type: 'number',
+    sortable: false,
+    width: 110,
   },
   {
     field: 'season',
@@ -36,7 +42,6 @@ const columns = [
     type: 'number',
     sortable: false,
     width: 110,
-    editable: true,
   },
   {
     field: 'likes',
@@ -44,7 +49,6 @@ const columns = [
     type: 'number',
     sortable: false,
     width: 110,
-    editable: true,
   },
   {
     field: 'sales',
@@ -58,7 +62,6 @@ const columns = [
     type: 'number',
     sortable: false,
     width: 110,
-    editable: true,
   },
   {
     field: 'reviews',
@@ -66,7 +69,6 @@ const columns = [
     type: 'number',
     sortable: false,
     width: 110,
-    editable: true,
   },
   {
     field: 'Tags',
@@ -80,23 +82,60 @@ const columns = [
 ];
 
 
-
 function App() {
   const [rows, setRows] = useState([]);
+  const [address, setAdress] = useState([""]);
   useEffect( () => {
-    fetch('/data')
+    fetch(`/data${address}`)
     .then(res => {
         return res.json();
     })
     .then( (data) => {
         setRows(data)
     }) 
-
-
 }, [])
+useEffect( () => {
+  fetch(`/data${address}`)
+  .then(res => {
+      return res.json();
+  })
+  .then( (data) => {
+      setRows(data)
+  }) 
+}, [address])
+
+function changeRank(){
+  // if(type === "sales")
+    setAdress("/sales");
+
+    // case "sales":
+    //   break;
+    // case "views":
+    //   setAdress("/views");
+    //   break;
+    // case "reviews":
+    //   setAdress("/reviews");
+    //   break;
+    // case "likes":
+    //   setAdress("/likes");
+    //   break;
+    // default:
+    //   break;
+
+}
+
+
   return (
     <div className="App">
       <Home />
+      <button onClick={() => setAdress("/sales")}> 판매순</button>
+      <button onClick={() => setAdress("/views")}> 조회순</button>
+      <button onClick={() => setAdress("/likes")}> 좋아요순</button>
+      <button onClick={() => setAdress("/reviews")}> 리뷰개수순</button>
+      <button onClick={() => setAdress("/likes_ratio_sorted")}> 좋아요 / 브랜드 좋아요 순</button>
+      <button onClick={() => setAdress("/reviews_ratio_sorted")}> 리뷰 / 브랜드 좋아요 순</button>
+      <button onClick={() => setAdress("/sales_ratio_sorted")}> 판매 / 브랜드 좋아요 순</button>
+      <button onClick={() => setAdress("/views_ratio_sorted")}> 조회 / 브랜드 좋아요 순</button>
       <Box sx={{ height: '80vh', width: '100%' }}>
         <DataGrid
           rows={rows}
@@ -109,11 +148,11 @@ function App() {
           disableColumnSelector = {true}
           disableDensitySelector = {true}
           rowsPerPageOptions={[5]}
-          initialState={{
-            sorting: {
-              sortModel: [{ field: "likes", sort: "desc" }],
-            },
-          }}
+          // initialState={{
+          //   sorting: {
+          //     sortModel: [{ field: "view", sort: "desc" }],
+          //   },
+          // }}
           // checkboxSelection
           // disableSelectionOnClick
           // experimentalFeatures={{ newEditingApi: true }}
