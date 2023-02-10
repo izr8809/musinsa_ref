@@ -85,6 +85,7 @@ const columns = [
 function App() {
   const [rows, setRows] = useState([]);
   const [address, setAdress] = useState([""]);
+  const [SS, setSS] = useState("");
   useEffect( () => {
     fetch(`/data${address}`)
     .then(res => {
@@ -103,6 +104,7 @@ useEffect( () => {
       setRows(data)
   }) 
 }, [address])
+
 
 function changeRank(){
   // if(type === "sales")
@@ -136,6 +138,7 @@ function changeRank(){
       <button onClick={() => setAdress("/reviews_ratio_sorted")}> 리뷰 / 브랜드 좋아요 순</button>
       <button onClick={() => setAdress("/sales_ratio_sorted")}> 판매 / 브랜드 좋아요 순</button>
       <button onClick={() => setAdress("/views_ratio_sorted")}> 조회 / 브랜드 좋아요 순</button>
+      <button onClick={() => setSS("SS")}> SS만 모아보기</button>
       <Box sx={{ height: '80vh', width: '100%' }}>
         <DataGrid
           rows={rows}
